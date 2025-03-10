@@ -6,8 +6,8 @@ const cors = require("cors");
 
 // Import routes
 const authRoutes = require("./routes/auth");
-// const userRoutes = require("./routes/user"); // Import only if you have user routes
-// const animalshopRoutes = require("./routes/animalshop"); // Import only if you have animalshop routes
+const userRoutes = require("./routes/user"); // Import only if you have user routes
+const animalshopRoutes = require("./routes/animalshop"); // Import only if you have animalshop routes
 const productRoutes = require("./routes/products"); // Change back to products
 const crossingRoutes = require("./routes/crossing");
 const paymentRoutes = require("./routes/payment");
