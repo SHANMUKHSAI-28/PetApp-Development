@@ -1,13 +1,20 @@
 const router = require("express").Router();
+const animalshopController = require("../controllers/animalshopController");
 const { verifyToken, verifyVendor, verifyAdmin } = require("../middleware/verifyToken");
 
-// Basic route structure
-router.get("/", async (req, res) => {
-  try {
-    res.status(200).json({ message: "Animal shop route working" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Create
+router.post("/", verifyToken, verifyAdmin, animalshopController.createAnimalshop);
+
+// Get all
+router.get("/", animalshopController.getAllAnimalshops);
+
+// Get by ID
+router.get("/:id", animalshopController.getAnimalshopById);
+
+// Update
+router.put("/:id", verifyToken, verifyVendor, animalshopController.updateAnimalshop);
+
+// Delete
+router.delete("/:id", verifyToken, verifyAdmin, animalshopController.deleteAnimalshop);
 
 module.exports = router;
