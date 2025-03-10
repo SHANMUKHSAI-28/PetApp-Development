@@ -8,7 +8,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 // const userRoutes = require("./routes/user"); // Import only if you have user routes
 // const animalshopRoutes = require("./routes/animalshop"); // Import only if you have animalshop routes
-// const productRoutes = require("./routes/products"); // Import only if you have product routes
+const productRoutes = require("./routes/products"); // Change back to products
 const crossingRoutes = require("./routes/crossing");
 const paymentRoutes = require("./routes/payment");
 const webhookRoute = require("./routes/webhook");
@@ -39,9 +39,9 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
-// app.use("/api/users", userRoutes); // Use only if you have user routes
-// app.use("/api/animalshops", animalshopRoutes); // Use only if you have animalshop routes
-// app.use("/api/products", productRoutes); // Use only if you have product routes
+app.use("/api/users", userRoutes); // Use only if you have user routes
+app.use("/api/animalshops", animalshopRoutes); // Use only if you have animalshop routes
+app.use("/api/products", productRoutes); // Change back to /api/products
 app.use("/api/crossing", crossingRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/webhook", webhookRoute); //For razor pay payment gateway webhooks
