@@ -1,11 +1,31 @@
 const router = require("express").Router();
 const crossingController = require("../controllers/crossingController");
-const { verifyToken, verifyVendor, verifyAdmin } = require("../middleware/verifyToken");
+const { verifyToken } = require("../middleware/verifyToken");
+const { createCrossingValidationRules } = require("../middleware/validations/crossingValidation");
+const validate = require("../middleware/validate");
+const { checkRole } = require("../middleware/accessControl");
 
-router.post("/", verifyVendor, crossingController.createCrossing);
+router.post(
+  "/",
+  verifyToken,
+  checkRole(["Vendor", "Admin"]),
+  createCrossingValidationRules(),
+  validate,
+  crossingController.createCrossing
+);
 router.get("/", crossingController.getAllCrossings);
 router.get("/:id", crossingController.getCrossingById);
-router.put("/:id", verifyVendor, crossingController.updateCrossing);
-router.delete("/:id", verifyVendor, crossingController.deleteCrossing);
+router.put(
+  "/:id",
+  verifyToken,
+  checkRole(["Vendor", "Admin"]),
+  crossingController.updateCrossing
+);
+router.delete(
+  "/:id",
+  verifyToken,
+  checkRole(["Vendor", "Admin"]),
+  crossingController.deleteCrossing
+);
 
 module.exports = router;

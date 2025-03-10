@@ -23,7 +23,9 @@ module.exports = {
       res.status(201).json(savedUser);
     } catch (err) {
       console.error("Error during registration:", err);
-      res.status(500).json({ message: "Registration failed", error: err.message });
+      res
+        .status(500)
+        .json({ message: "Registration failed", error: err.message });
     }
   },
   login: async (req, res) => {
@@ -55,7 +57,9 @@ module.exports = {
       res.status(200).json({ ...others, accessToken });
     } catch (err) {
       console.error("Error during login:", err);
-      res.status(500).json({ message: "Login failed", error: err.message });
+      res
+        .status(500)
+        .json({ message: "Login failed", error: err.message });
     }
   },
 };

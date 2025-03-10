@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Payment = require("../models/Payment");
 
 module.exports = {
     createProduct: async (req, res) => {
@@ -56,6 +57,56 @@ module.exports = {
           res.status(200).json("Product has been deleted...");
         } catch (err) {
           res.status(500).json(err);
+        }
+      },
+      getProductDetails: async (req, res) => {
+        try {
+          const { id } = req.params;
+          const { userId } = req.body;
+    
+          const product = await Product.findById(id);
+    
+          if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+          }
+    
+          // Check if payment exists for this product and user
+          const payment = await Payment.findOne({
+            userId: userId,
+            productId: id,
+            status: "success",
+          });
+    
+          let productDetails;
+    
+          if (payment) {
+            // If payment exists, return all details
+            productDetails = {
+              ...product._doc,
+            };
+          } else {
+            // If no payment, return limited details
+            productDetails = {
+              category: product.category,
+              Breed_name: product.Breed_name,
+              Gender: product.Gender,
+              imageurl: product.imageurl,
+              quality: product.quality,
+              age: product.age,
+              Breed_lineage: product.Breed_lineage,
+              vaccination: product.vaccination,
+              price: product.price,
+              location: product.location,
+              status: product.status,
+            };
+          }
+    
+          res.status(200).json(productDetails);
+        } catch (err) {
+          console.error("Error getting product details:", err);
+          res
+            .status(500)
+            .json({ message: "Failed to get product details", error: err.message });
         }
       },
 

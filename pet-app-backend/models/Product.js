@@ -1,4 +1,19 @@
 const mongoose = require("mongoose");
+const ffmpeg = require("fluent-ffmpeg");
+
+// Function to check video duration
+const checkVideoDuration = async (videoPath) => {
+  return new Promise((resolve, reject) => {
+    ffmpeg.ffprobe(videoPath, (err, metadata) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const duration = metadata.format.duration;
+      resolve(duration <= 10);
+    });
+  });
+};
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -18,11 +33,32 @@ const ProductSchema = new mongoose.Schema(
     quality: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
-    petParentsMatingVideo: { type: String }, // Make sure you validate video URL on client side.
+    petParentsMatingVideo: {
+      type: String,
+      validate: {
+        validator: async function (v) {
+          if (v) {
+            try {
+              const isValid = await checkVideoDuration(v);
+              return isValid;
+            } catch (error) {
+              console.error("Video duration check failed:", error);
+              return false; // Validation fails if there's an error during check
+            }
+          }
+          return true; // Allow null or undefined values (optional video)
+        },
+        message: "Video duration must not be more than 10 seconds!",
+      },
+    },
     Breed_lineage: { type: String, required: true },
     Address: { type: String, required: true },
     Gender: { type: String, required: true, enum: ["Male", "Female"] },
-    status: { type: String, default: "available", enum: ["available", "unavailable"] },
+    status: {
+      type: String,
+      default: "available",
+      enum: ["available", "unavailable"],
+    },
     location: { type: String, required: true },
     age: { type: Number, required: true },
     vaccination: { type: String, required: true },
