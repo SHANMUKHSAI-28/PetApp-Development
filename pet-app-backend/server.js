@@ -6,9 +6,9 @@ const cors = require("cors"); // Import the cors middleware
 
 // Import routes
 const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const animalshopRoutes = require("./routes/animalshop");
-const productRoutes = require("./routes/products");
+// const userRoutes = require("./routes/user");
+// const animalshopRoutes = require("./routes/animalshop");
+// const productRoutes = require("./routes/products");
 const crossingRoutes = require("./routes/crossing");
 
 dotenv.config();
@@ -22,18 +22,18 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 // MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Exit process with failure
+  });
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/animalshops", animalshopRoutes);
-app.use("/api/products", productRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/animalshops", animalshopRoutes);
+// app.use("/api/products", productRoutes);
 app.use("/api/crossing", crossingRoutes);
 
 // Start the server
