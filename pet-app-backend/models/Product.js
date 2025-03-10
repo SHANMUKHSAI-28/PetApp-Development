@@ -1,3 +1,4 @@
+// pet-app-backend\models\Product.js
 const mongoose = require("mongoose");
 const ffmpeg = require("fluent-ffmpeg");
 
@@ -17,8 +18,8 @@ const checkVideoDuration = async (videoPath) => {
 
 const ProductSchema = new mongoose.Schema(
   {
-    petsshop: { type: mongoose.Schema.Types.ObjectId, ref: "Animalsshop" },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    petsshop: { type: mongoose.Schema.Types.ObjectId, ref: "Animalsshop", required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     imageurl: {
       type: [String],
       validate: {
@@ -33,23 +34,8 @@ const ProductSchema = new mongoose.Schema(
     quality: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
-    petParentsMatingVideo: {
-      type: String,
-      validate: {
-        validator: async function (v) {
-          if (v) {
-            try {
-              const isValid = await checkVideoDuration(v);
-              return isValid;
-            } catch (error) {
-              console.error("Video duration check failed:", error);
-              return false; // Validation fails if there's an error during check
-            }
-          }
-          return true; // Allow null or undefined values (optional video)
-        },
-        message: "Video duration must not be more than 10 seconds!",
-      },
+    petParentsMatingVideo: {  // Video Validation Removed
+      type: String
     },
     Breed_lineage: { type: String, required: true },
     Address: { type: String, required: true },
@@ -64,7 +50,7 @@ const ProductSchema = new mongoose.Schema(
     vaccination: { type: String, required: true },
     Breeder_Name: { type: String, required: true },
     Contact_Number: {
-      type: String,
+      type: String,  // Data type changed to String
       validate: {
         validator: function (v) {
           return /^\d{10}$/.test(v);

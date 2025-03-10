@@ -1,3 +1,4 @@
+// pet-app-frontend\src\components\Vendor\AddPet.js
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import {
@@ -16,9 +17,9 @@ import { AuthContext } from "../../context/AuthContext";
 
 const AddPet = () => {
     const [productDetails, setProductDetails] = useState({
-        petsshop: "",
-        userId: "",
-        imageurl: "",
+        petsshop: "659cdb97938043e4e56f28ca", // Replace with valid ObjectId
+        userId: "659cdb97938043e4e56f28c9",  // Replace with valid ObjectId
+        imageurl: [], // Initialize as an empty array
         Breed_name: "",
         quality: "",
         price: 0,
@@ -32,9 +33,9 @@ const AddPet = () => {
         age: 0,
         vaccination: "",
         Breeder_Name: "",
-        Contact_Number: ""
+        Contact_Number: "1234567890" // Ensure this is a 10-digit STRING
     });
-    const { token } = useContext(AuthContext); // Access the token from AuthContext
+    const { token } = useContext(AuthContext);
 
     const handleChange = (e) => {
         setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
@@ -42,18 +43,52 @@ const AddPet = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            // Use the /api/products endpoint and send the product details
-            await axios.post("http://localhost:5000/api/products", productDetails, {
+            // Split the comma-separated string into an array, remove whitespace
+            const imageArray = productDetails.imageurl
+                ? productDetails.imageurl.split(",").map(url => url.trim())
+                : [];
+
+            // Validate that imageArray has 1-4 images.
+            if (imageArray.length < 1 || imageArray.length > 4) {
+                alert("You must provide between 1 and 4 image URLs.");
+                return;  // Stop submission
+            }
+
+            // Prepare the product data
+            const productData = {
+                ...productDetails,
+                imageurl: imageArray,
+            };
+
+            const response = await axios.post("http://localhost:5000/api/products", productData, {
                 headers: {
-                    Authorization: `Bearer ${token}` // Include token in header
+                    Authorization: `Bearer ${token}`
                 }
             });
+
             alert("Product added successfully!");
             // Optionally, clear the form or redirect
+            console.log("Product added successfully:", response.data); // Log the response
         } catch (error) {
             console.error("Error adding product:", error);
-            alert("Failed to add product.");
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error("Response data:", error.response.data);
+                console.error("Response status:", error.response.status);
+                console.error("Response headers:", error.response.headers);
+                alert(`Failed to add product. Status: ${error.response.status}. See console for details.`);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error("No response received:", error.request);
+                alert("Failed to add product. No response from server.");
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error("Error message:", error.message);
+                alert(`Failed to add product. Error: ${error.message}`);
+            }
         }
     };
 

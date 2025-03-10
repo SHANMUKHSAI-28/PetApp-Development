@@ -29,6 +29,27 @@ const VendorDashboard = () => {
             </Button>
           </Paper>
         </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
+            <Typography variant="h6" gutterBottom>
+              Add Mating
+            </Typography>
+            <Button component={Link} to="/vendor/add-mating" variant="contained" color="primary">
+              Add Mating
+            </Button>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
+            <Typography variant="h6" gutterBottom>
+              Manage Matings
+            </Typography>
+            <Button component={Link} to="/vendor/manage-matings" variant="contained" color="primary">
+              Manage Matings
+            </Button>
+          </Paper>
+        </Grid>
         {/* Add more Vendor features */}
       </Grid>
     </Container>
