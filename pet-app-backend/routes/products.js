@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const productController = require("../controllers/productController");
-const { verifyToken } = require("../middleware/verifyToken");
+const { verifyToken } = require("../middleware/verifyToken"); // Assuming verifyToken.js exists
+const { checkRole } = require("../middleware/accessControl"); // Import access control
 const { createProductValidationRules } = require("../middleware/validations/productValidation");
 const validate = require("../middleware/validate");
-const { checkRole } = require("../middleware/accessControl");
 
 router.post(
   "/",

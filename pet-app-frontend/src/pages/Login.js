@@ -8,7 +8,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,8 +16,9 @@ const Login = () => {
         email,
         password,
       });
+
       login(response.data, response.data.accessToken);
-      navigate("/"); // Redirect to home page after login
+      console.log("User type after login:", response.data.userType); // Verify the userType
     } catch (error) {
       console.error("Login failed", error);
       alert("Invalid credentials");
