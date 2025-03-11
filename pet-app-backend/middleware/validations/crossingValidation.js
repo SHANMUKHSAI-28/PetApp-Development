@@ -7,6 +7,7 @@ const createCrossingValidationRules = () => {
     body("Gender").isIn(["Male", "Female"]).withMessage("Gender must be Male or Female"),
     body("Quality").trim().notEmpty().withMessage("Quality is required"),
     body("imageurl").trim().notEmpty().withMessage("Image URL is required"),
+    // Removed mating_video validation rule.
     body("Breeder_Name").trim().notEmpty().withMessage("Breeder name is required"),
     body("aadhar_Number").isNumeric().withMessage("Aadhar number must be numeric"),
     body("Address").trim().notEmpty().withMessage("Address is required"),

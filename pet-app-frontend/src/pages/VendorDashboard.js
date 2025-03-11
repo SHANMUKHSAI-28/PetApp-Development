@@ -33,20 +33,20 @@ const VendorDashboard = () => {
         <Grid item xs={12} md={6}>
           <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h6" gutterBottom>
-              Add Mating
+              Add Crossing
             </Typography>
-            <Button component={Link} to="/vendor/add-mating" variant="contained" color="primary">
-              Add Mating
+            <Button component={Link} to="/vendor/add-crossing" variant="contained" color="primary">
+              Add Crossing
             </Button>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
           <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h6" gutterBottom>
-              Manage Matings
+              Manage Crossings
             </Typography>
-            <Button component={Link} to="/vendor/manage-matings" variant="contained" color="primary">
-              Manage Matings
+            <Button component={Link} to="/vendor/manage-crossings" variant="contained" color="primary">
+              Manage Crossings
             </Button>
           </Paper>
         </Grid>

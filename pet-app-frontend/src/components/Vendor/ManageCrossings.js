@@ -15,28 +15,28 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 
-const ManageMatings = () => {
-    const [matings, setMatings] = useState([]);
+const ManageCrossings = () => {
+    const [crossings, setCrossings] = useState([]);
     const { token } = useContext(AuthContext);
 
     useEffect(() => {
-        const fetchMatings = async () => {
+        const fetchCrossings = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/matings"); // Changed endpoint
-                setMatings(response.data);
+                const response = await axios.get("http://localhost:5000/api/crossings"); // Changed endpoint
+                setCrossings(response.data);
             } catch (error) {
-                console.error("Error fetching matings:", error);
+                console.error("Error fetching crossings:", error);
             }
         };
 
-        fetchMatings();
+        fetchCrossings();
     }, []);
 
     return (
         <Container maxWidth="md" style={{ marginTop: "20px" }}>
-            <Typography variant="h4" gutterBottom>Manage Matings</Typography>
+            <Typography variant="h4" gutterBottom>Manage Crossings</Typography>
             <TableContainer component={Paper}>
-                <Table aria-label="matings table">
+                <Table aria-label="crossings table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Category</TableCell>
@@ -47,16 +47,16 @@ const ManageMatings = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {matings.map((mating) => (
-                            <TableRow key={mating._id}>
-                                <TableCell>{mating.Category}</TableCell>
-                                <TableCell>{mating.Breed_name}</TableCell>
-                                <TableCell>{mating.Gender}</TableCell>
-                                <TableCell>{mating.status}</TableCell>
+                        {crossings.map((crossing) => (
+                            <TableRow key={crossing._id}>
+                                <TableCell>{crossing.Category}</TableCell>
+                                <TableCell>{crossing.Breed_name}</TableCell>
+                                <TableCell>{crossing.Gender}</TableCell>
+                                <TableCell>{crossing.status}</TableCell>
                                 <TableCell>
                                     <Button
                                         component={Link}
-                                        to={`/mating/edit/${mating._id}`} // Adjust route if needed
+                                        to={`/crossing/edit/${crossing._id}`} // Adjust route if needed
                                         variant="outlined"
                                         size="small"
                                         style={{ marginRight: "5px" }}
@@ -74,4 +74,4 @@ const ManageMatings = () => {
     );
 };
 
-export default ManageMatings;
+export default ManageCrossings;

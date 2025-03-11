@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
 
-const AddMating = () => {
-    const [matingDetails, setMatingDetails] = useState({
+const AddCrossing = () => {
+    const [crossingDetails, setCrossingDetails] = useState({
         Category: "",
         Breed_name: "",
         Gender: "",
@@ -36,23 +36,23 @@ const AddMating = () => {
     const { token } = useContext(AuthContext);
 
     const handleChange = (e) => {
-        setMatingDetails({ ...matingDetails, [e.target.name]: e.target.value });
+        setCrossingDetails({ ...crossingDetails, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:5000/api/matings", matingDetails, { // Changed endpoint
+            const response = await axios.post("http://localhost:5000/api/crossings", crossingDetails, { // Changed endpoint
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            alert("Mating added successfully!");
-            console.log("Mating added successfully:", response.data);
+            alert("Crossing added successfully!");
+            console.log("Crossing added successfully:", response.data);
             // Optionally, clear the form or redirect
-            setMatingDetails({
+            setCrossingDetails({
                 Category: "",
                 Breed_name: "",
                 Gender: "",
@@ -71,17 +71,17 @@ const AddMating = () => {
                 userid: ""
             }); // Clear the form
         } catch (error) {
-            console.error("Error adding mating:", error);
+            console.error("Error adding crossing:", error);
             if (error.response) {
                 console.error("Response data:", error.response.data);
                 console.error("Response status:", error.response.status);
-                alert(`Failed to add mating. Status: ${error.response.status}. See console for details.`);
+                alert(`Failed to add crossing. Status: ${error.response.status}. See console for details.`);
             } else if (error.request) {
                 console.error("No response received:", error.request);
-                alert("Failed to add mating. No response from server.");
+                alert("Failed to add crossing. No response from server.");
             } else {
                 console.error("Error message:", error.message);
-                alert(`Failed to add mating. Error: ${error.message}`);
+                alert(`Failed to add crossing. Error: ${error.message}`);
             }
         }
     };
@@ -89,71 +89,71 @@ const AddMating = () => {
     return (
         <Container maxWidth="md" style={{ marginTop: "20px" }}>
             <Paper elevation={3} style={{ padding: "20px" }}>
-                <Typography variant="h4" gutterBottom>Add Mating</Typography>
+                <Typography variant="h4" gutterBottom>Add Crossing</Typography>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2} direction="column">
                         <Grid item>
-                            <TextField label="Category" name="Category" value={matingDetails.Category} onChange={handleChange} required fullWidth />
+                            <TextField label="Category" name="Category" value={crossingDetails.Category} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Breed Name" name="Breed_name" value={matingDetails.Breed_name} onChange={handleChange} required fullWidth />
+                            <TextField label="Breed Name" name="Breed_name" value={crossingDetails.Breed_name} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
                             <FormControl fullWidth>
                                 <InputLabel id="gender-label">Gender</InputLabel>
-                                <Select labelId="gender-label" id="Gender" name="Gender" value={matingDetails.Gender} onChange={handleChange} required>
+                                <Select labelId="gender-label" id="Gender" name="Gender" value={crossingDetails.Gender} onChange={handleChange} required>
                                     <MenuItem value="Male">Male</MenuItem>
                                     <MenuItem value="Female">Female</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <TextField label="Quality" name="Quality" value={matingDetails.Quality} onChange={handleChange} required fullWidth />
+                            <TextField label="Quality" name="Quality" value={crossingDetails.Quality} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Image URL" name="imageurl" value={matingDetails.imageurl} onChange={handleChange} required fullWidth />
+                            <TextField label="Image URL" name="imageurl" value={crossingDetails.imageurl} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Mating Video URL" name="mating_video" value={matingDetails.mating_video} onChange={handleChange} fullWidth />
+                            <TextField label="Crossing Video URL" name="mating_video" value={crossingDetails.mating_video} onChange={handleChange} fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Breeder Name" name="Breeder_Name" value={matingDetails.Breeder_Name} onChange={handleChange} required fullWidth />
+                            <TextField label="Breeder Name" name="Breeder_Name" value={crossingDetails.Breeder_Name} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Aadhar Number" name="aadhar_Number" type="number" value={matingDetails.aadhar_Number} onChange={handleChange} required fullWidth />
+                            <TextField label="Aadhar Number" name="aadhar_Number" type="number" value={crossingDetails.aadhar_Number} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Address" name="Address" value={matingDetails.Address} onChange={handleChange} required fullWidth />
+                            <TextField label="Address" name="Address" value={crossingDetails.Address} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
                             <FormControl fullWidth>
                                 <InputLabel id="status-label">Status</InputLabel>
-                                <Select labelId="status-label" id="status" name="status" value={matingDetails.status} onChange={handleChange} required>
+                                <Select labelId="status-label" id="status" name="status" value={crossingDetails.status} onChange={handleChange} required>
                                     <MenuItem value="available">Available</MenuItem>
                                     <MenuItem value="unavailable">Unavailable</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <TextField label="Contact Number" name="Contact_Number" value={matingDetails.Contact_Number} onChange={handleChange} required fullWidth />
+                            <TextField label="Contact Number" name="Contact_Number" value={crossingDetails.Contact_Number} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Vaccination" name="vaccination" value={matingDetails.vaccination} onChange={handleChange} required fullWidth />
+                            <TextField label="Vaccination" name="vaccination" value={crossingDetails.vaccination} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Location" name="location" value={matingDetails.location} onChange={handleChange} required fullWidth />
+                            <TextField label="Location" name="location" value={crossingDetails.location} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Age" name="age" type="number" value={matingDetails.age} onChange={handleChange} required fullWidth />
+                            <TextField label="Age" name="age" type="number" value={crossingDetails.age} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="Breed Lineage" name="Breed_lineage" value={matingDetails.Breed_lineage} onChange={handleChange} required fullWidth />
+                            <TextField label="Breed Lineage" name="Breed_lineage" value={crossingDetails.Breed_lineage} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <TextField label="User ID" name="userid" value={matingDetails.userid} onChange={handleChange} required fullWidth />
+                            <TextField label="User ID" name="userid" value={crossingDetails.userid} onChange={handleChange} required fullWidth />
                         </Grid>
                         <Grid item>
-                            <Button type="submit" variant="contained" color="primary">Add Mating</Button>
+                            <Button type="submit" variant="contained" color="primary">Add Crossing</Button>
                         </Grid>
                     </Grid>
                 </form>
@@ -162,4 +162,4 @@ const AddMating = () => {
     );
 };
 
-export default AddMating;
+export default AddCrossing;

@@ -1,5 +1,5 @@
 const Crossing = require("../models/Crossing");
-const Payment = require("../models/Payment"); // Import the Payment model
+const Payment = require("../models/Payment");
 
 module.exports = {
   // Create a new crossing

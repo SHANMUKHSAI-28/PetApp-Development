@@ -23,9 +23,11 @@ import ManageUsers from "./components/Admin/ManageUsers";
 import AddPet from "./components/Vendor/AddPet";
 import ManagePets from "./components/Vendor/ManagePets";
 import OrderPets from "./components/Client/OrderPets";
-import ViewMatingDetails from "./components/Client/ViewMatingDetails";
+import ViewCrossingDetails from "./components/Client/ViewCrossingDetails";
 import DeliveryList from "./components/Driver/DeliveryList";
 import { AuthContext } from "./context/AuthContext";
+import AddCrossing from "./components/Vendor/AddCrossing";
+import ManageCrossings from "./components/Vendor/ManageCrossings";
 
 // Function to create a protected route
 const ProtectedRoute = ({ allowedUserTypes, children }) => {
@@ -64,11 +66,13 @@ function App() {
                 <Route path="/vendor" element={<ProtectedRoute allowedUserTypes={["Vendor"]}><VendorDashboard /></ProtectedRoute>} />
                 <Route path="/vendor/add-pet" element={<ProtectedRoute allowedUserTypes={["Vendor"]}><AddPet /></ProtectedRoute>} />
                 <Route path="/vendor/manage-pets" element={<ProtectedRoute allowedUserTypes={["Vendor"]}><ManagePets /></ProtectedRoute>} />
+                <Route path="/vendor/add-crossing" element={<ProtectedRoute allowedUserTypes={["Vendor"]}><AddCrossing /></ProtectedRoute>} />
+                <Route path="/vendor/manage-crossings" element={<ProtectedRoute allowedUserTypes={["Vendor"]}><ManageCrossings /></ProtectedRoute>} />
 
                 {/* Client Routes */}
                 <Route path="/client" element={<ProtectedRoute allowedUserTypes={["Client"]}><ClientDashboard /></ProtectedRoute>} />
                 <Route path="/client/order-pets" element={<ProtectedRoute allowedUserTypes={["Client"]}><OrderPets /></ProtectedRoute>} />
-                <Route path="/client/view-mating-details" element={<ProtectedRoute allowedUserTypes={["Client"]}><ViewMatingDetails /></ProtectedRoute>} />
+                <Route path="/client/view-crossing-details" element={<ProtectedRoute allowedUserTypes={["Client"]}><ViewCrossingDetails /></ProtectedRoute>} />
 
                 {/* Driver Routes */}
                 <Route path="/driver" element={<ProtectedRoute allowedUserTypes={["Driver"]}><DriverDashboard /></ProtectedRoute>} />
